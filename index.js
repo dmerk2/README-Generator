@@ -29,13 +29,7 @@ const questions = [
     type: "list",
     message: "Which license are you using?",
     name: "license",
-    choices: [
-      "1. MIT License",
-      "2. GNU License",
-      "3. GPLv2 License",
-      "4. Apache",
-      "5. Other",
-    ],
+    choices: ["MIT License", "GNU License", "GPLv2 License", "Apache 2.0"],
   },
   {
     type: "input",
@@ -44,7 +38,7 @@ const questions = [
   },
   {
     type: "input",
-    message: "Is this project a test?",
+    message: "What tests, if any, were used for this project?",
     name: "tests",
   },
   {
@@ -62,9 +56,9 @@ const questions = [
 // Function to write README file
 const writeToFile = (fileName, data) => {
   fs.writeFileSync(fileName, data, (err) => console.error("Error: ", err));
-}
+};
 
-// Initializing app 
+// Initializing app
 const init = () => {
   inquirer
     .prompt(questions)
@@ -77,7 +71,7 @@ const init = () => {
     .catch((err) => {
       console.error("Error: ", err);
     });
-}
+};
 
 // Function call to initialize app
 init();
