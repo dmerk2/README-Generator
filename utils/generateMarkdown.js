@@ -1,35 +1,45 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {
-  if (!license) {
-    return "";
+// Function that returns a license badge based on which license is passed in and if there is no license, return an empty string
+const renderLicenseBadge = (license) => {
+  switch (license) {
+    case "MIT License":
+      return "=https://img.shields.io/badge/License-MIT-yellow.svg";
+    case "GNU License":
+      return "https://img.shields.io/badge/License-GNU-blue.svg";
+    case "GPLv2 License":
+      return "https://img.shields.io/badge/License-GPLv2-blue.svg";
+    case "Apache 2.0":
+      return "https://img.shields.io/badge/License-Apache%202.0-blue.svg";
+    default:
+      return "";
   }
-}
+};
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {
-  if (!licence) {
-    return "";
+// Function that returns the license link and if no license, returns an empty string
+const renderLicenseLink = (license) => {
+  switch (license) {
+    case "MIT License":
+      return "https://opensource.org/licenses/MIT";
+    case "GNU License":
+      return "https://www.gnu.org/licenses/";
+    case "GPLv2 License":
+      return "https://www.gnu.org/licenses/gpl-2.0.html";
+    case "Apache 2.0":
+      return "https://opensource.org/licenses/Apache-2.0"
+    default:
+      return "";
   }
-}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {
-  if (!license) {
-    return "";
-  }
-}
+};
 
 // Function to generate markdown for README
-function generateMarkdown(data) {
+const generateMarkdown = (data) => {
   return `# ${data.title}
 
-## Description
-${data.description}
+<p align="center">
+  <img src="${renderLicenseBadge(data.license)}" width="100">
+</p>
 
 ## Table of Contents
+- [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
@@ -37,25 +47,41 @@ ${data.description}
 - [Tests](#tests)
 - [Questions](#questions)
 
+## Description
+\`\`\`
+${data.description}
+\`\`\`
+
 ## Installation
+\`\`\`
 ${data.installation}
+\`\`\`
 
 ## Usage
+\`\`\`
 ${data.usage}
+\`\`\`
 
 ## License
-${data.licence}
+This project is licensed under the terms of the **[${
+    data.license
+  }](${renderLicenseLink(data.license)})**
 
 ## Contributing
+\`\`\`
 ${data.contributing}
+\`\`\`
 
 ## Tests
+\`\`\`
 ${data.tests}
+\`\`\`
 
 ## Questions
-View my GitHub profile: ${data.github}<br/>
-Email me at ${data.email}
+If you have any questions or suggestions about this project, please feel free to contact me:
+- GitHub: [@${data.github}](https://github.com/${data.github})<br/>
+- Email: ${data.email}
 `;
-}
+};
 
 module.exports = generateMarkdown;
