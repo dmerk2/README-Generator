@@ -4,66 +4,79 @@ const fs = require("fs");
 const generateMarkdown = require("./utils/generateMarkdown");
 
 // An array of questions for user input
-const questions = inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "What is the name of your project?",
-      name: "title",
-    },
-    {
-      type: "input",
-      message: "What is a description of your project?",
-      name: "description",
-    },
-    {
-      type: "input",
-      message: "How do you install this project?",
-      name: "installation",
-    },
-    {
-      type: "input",
-      message: "What is this project used for?",
-      name: "usage",
-    },
-    {
-      type: "list",
-      message: "Which license are you using?",
-      name: "license",
-      choices: ["1. MIT License", "2. GNU License"],
-    },
-    {
-      type: "input",
-      message: "Who contributed to this project?",
-      name: "contributing",
-    },
-    {
-      type: "input",
-      message: "Is this project a test?",
-      name: "tests",
-    },
-    {
-      type: "input",
-      message: "What is your GitHub username?",
-      name: "github",
-    },
-  ])
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.error("Error: ", err);
-  });
+const questions = [
+  {
+    type: "input",
+    message: "What is the name of your project?",
+    name: "title",
+  },
+  {
+    type: "input",
+    message: "What is a description of your project?",
+    name: "description",
+  },
+  {
+    type: "input",
+    message: "How do you install this project?",
+    name: "installation",
+  },
+  {
+    type: "input",
+    message: "What is this project used for?",
+    name: "usage",
+  },
+  {
+    type: "list",
+    message: "Which license are you using?",
+    name: "license",
+    choices: [
+      "1. MIT License",
+      "2. GNU License",
+      "3. GPLv2 License",
+      "4. Apache",
+      "5. Other",
+    ],
+  },
+  {
+    type: "input",
+    message: "Who contributed to this project?",
+    name: "contributing",
+  },
+  {
+    type: "input",
+    message: "Is this project a test?",
+    name: "tests",
+  },
+  {
+    type: "input",
+    message: "What is your GitHub username?",
+    name: "github",
+  },
+  {
+    type: "input",
+    message: "What is your email address?",
+    name: "email",
+  },
+];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-  fs.writeFile("README.md", data, (err) => console.log(err));
+// Function to write README file
+const writeToFile = (fileName, data) => {
+  fs.writeFileSync(fileName, data, (err) => console.error("Error: ", err));
 }
 
-// TODO: Create a function to initialize app
-function init() {
-  // questions();
-  // writeToFile();
+// Initializing app 
+const init = () => {
+  inquirer
+    .prompt(questions)
+    // Take the responses from the questions and create readme
+    .then((responses) => {
+      const markdown = generateMarkdown(responses);
+      writeToFile("README.md", markdown);
+      console.log("README.md created successfully!");
+    })
+    .catch((err) => {
+      console.error("Error: ", err);
+    });
 }
 
 // Function call to initialize app
