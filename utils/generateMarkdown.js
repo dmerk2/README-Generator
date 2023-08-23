@@ -2,7 +2,7 @@
 const renderLicenseBadge = (license) => {
   switch (license) {
     case "MIT License":
-      return "=https://img.shields.io/badge/License-MIT-yellow.svg";
+      return "https://img.shields.io/badge/License-MIT-yellow.svg";
     case "GNU License":
       return "https://img.shields.io/badge/License-GNU-blue.svg";
     case "GPLv2 License":
@@ -34,9 +34,9 @@ const renderLicenseLink = (license) => {
 const generateMarkdown = (data) => {
   return `# ${data.title}
 
-<p align="center">
+<div align="center">
   <img src="${renderLicenseBadge(data.license)}" width="100">
-</p>
+</div>
 
 ## Table of Contents
 - [Description](#description)
@@ -79,7 +79,7 @@ ${data.tests}
 
 ## Questions
 If you have any questions or suggestions about this project, please feel free to contact me:
-- GitHub: [@${data.github}](https://github.com/${data.github})<br/>
+- GitHub: [@${data.github}](https://github.com/${data.github})
 - Email: ${data.email}
 `;
 };
