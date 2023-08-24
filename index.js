@@ -29,7 +29,12 @@ const questions = [
     type: "list",
     message: "Which license are you using?",
     name: "license",
-    choices: ["MIT License", "BSD 3-Clause License", "GPLv3 License", "Apache 2.0"],
+    choices: [
+      "MIT License",
+      "BSD 3-Clause License",
+      "GPLv3 License",
+      "Apache 2.0",
+    ],
   },
   {
     type: "input",
@@ -40,6 +45,7 @@ const questions = [
     type: "input",
     message: "What tests, if any, were used for this project?",
     name: "tests",
+    default: "N/A",
   },
   {
     type: "input",
@@ -50,6 +56,14 @@ const questions = [
     type: "input",
     message: "What is your email address?",
     name: "email",
+    validate: function (input) {
+      // Basic email validation using a regular expression
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailPattern.test(input)) {
+        return true;
+      }
+      return "Please enter a valid email address.";
+    },
   },
 ];
 
